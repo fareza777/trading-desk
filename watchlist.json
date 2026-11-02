@@ -1,0 +1,15 @@
+{
+  "_comment": "Paper-trading agent. autoDiscover pulls top-N symbols by 24h volume from the exchange into auto-symbols.json; scanBatchSize assets are scanned per cycle (rotating).",
+  "loopIntervalMinutes": 15,
+  "scanBatchSize": 200,
+  "paperBalanceStart": 10000,
+  "exchange": "okx",
+  "autoDiscover": { "enabled": true, "topN": 200, "quote": "USDT" },
+  "assets": [
+    { "symbol": "BTC/USDT", "name": "Bitcoin" },
+    { "symbol": "ETH/USDT", "name": "Ethereum" },
+    { "symbol": "SOL/USDT", "name": "Solana" },
+    { "symbol": "LINK/USDT", "name": "Chainlink" },
+    { "symbol": "AVAX/USDT", "name": "Avalanche" }
+  ]
+}

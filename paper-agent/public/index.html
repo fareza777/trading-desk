@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" id="themeColor" content="#f3f0e8"/>
+<title>Trading Desk — Paper Agent</title>
+<script>
+  (() => {
+    try {
+      const saved = localStorage.getItem("td-theme");
+      if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+    } catch {}
+    const meta = document.getElementById("themeColor");
+    if (meta) meta.setAttribute("content", document.documentElement.dataset.theme === "light" ? "#f3f0e8" : "#06080c");
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"/>
+<script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="app">
+
+  <!-- TICKER TAPE -->
+  <div class="ticker-tape"><div class="tape-track" id="tapeTrack"></div></div>
+
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">◈</div>
+      <div>
+        <div class="brand-name">TRADING&nbsp;DESK</div>
+        <div class="brand-sub">adaptive engine · automatic paper trading</div>
+      </div>
+    </div>
+    <nav class="tabs">
+      <button class="tab active" data-page="dashboard">Dashboard</button>
+      <button class="tab" data-page="portfolio">Portfolio</button>
+      <button class="tab" data-page="adaptive">Adaptive</button>
+    </nav>
+    <div class="top-right">
+      <div class="agent-pill"><span class="dot" id="agentDot"></span><span id="agentState">ADAPTIVE LOADING</span></div>
+      <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="true" aria-label="Switch to dark mode" title="Switch to dark mode">
+        <span class="theme-knob" aria-hidden="true"></span>
+        <svg class="theme-ico sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+        <svg class="theme-ico moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.2 14.2A8.5 8.5 0 0 1 9.8 3.8 8.5 8.5 0 1 0 20.2 14.2Z"/>
+        </svg>
+      </button>
+      <button class="btn" id="btnOnce" title="Refresh displayed data; trading runs automatically">Refresh</button>
+      <button class="btn btn-start" id="btnStart" disabled title="Managed automatically by the adaptive scheduler">Auto</button>
+      <button class="btn btn-stop" id="btnStop" disabled title="Risk brakes are managed by the adaptive engine">Guarded</button>
+      <a class="btn" href="/api/export/trades" title="download CSV" style="text-decoration:none">⬇ CSV</a>
+      <button class="btn btn-stop" id="btnReset" disabled title="Adaptive history and risk brakes cannot be reset from the dashboard">Reset</button>
+      <div class="exchange-tag" id="exchangeTag">okx</div>
+    </div>
+  </header>
+
+  <!-- ══════════ DASHBOARD PAGE ══════════ -->
+  <div id="page-dashboard" class="page">
+
+    <section class="kpis">
+      <div class="kpi"><div class="kpi-label">Equity</div><div class="kpi-val" id="kEquity">$10,000.00</div><div class="kpi-sub" id="kEquitySub">cash $10,000</div></div>
+      <div class="kpi"><div class="kpi-label">Total P&amp;L</div><div class="kpi-val" id="kPnl">$0.00</div><div class="kpi-sub" id="kPnlPct">0.00%</div></div>
+      <div class="kpi"><div class="kpi-label">Deployed</div><div class="kpi-val" id="kDep">$0</div><div class="kpi-sub" id="kDepPct">0% of equity</div></div>
+      <div class="kpi"><div class="kpi-label">Open</div><div class="kpi-val" id="kOpen">—</div><div class="kpi-sub">adaptive · long only</div></div>
+      <div class="kpi"><div class="kpi-label">Win Rate</div><div class="kpi-val" id="kWin">—</div><div class="kpi-sub" id="kClosed">0 closed</div></div>
+      <div class="kpi"><div class="kpi-label">Max DD</div><div class="kpi-val" id="kDD">0.00%</div><div class="kpi-sub" id="kDDSub">from peak</div></div>
+      <div class="kpi"><div class="kpi-label">Next check (est.)</div><div class="kpi-val mono" id="kNext">—</div><div class="kpi-sub" id="kLast">—</div></div>
+    </section>
+
+    <main class="grid">
+      <div class="panel chart-panel">
+        <div class="panel-head">
+          <div class="panel-title"><span id="chartSym">BTC/USDT</span><span class="price-live" id="chartPrice">—</span><span class="price-chg" id="chartChg"></span></div>
+          <div class="tf-switch"><button class="tf-btn" data-tf="15m">15M</button><button class="tf-btn active" data-tf="1h">1H</button><button class="tf-btn" data-tf="4h">4H</button><button class="tf-btn" data-tf="1w">1W</button></div>
+        </div>
+        <div class="chart-wrap"><div id="candleChart"></div><div id="candleTip" class="candle-tip hidden"></div></div>
+        <div class="panel-head"><div class="panel-title" style="font-size:11px;color:var(--tx2)">Equity</div></div>
+        <div class="equity-wrap"><div id="equityChart"></div></div>
+      </div>
+
+      <div class="panel watch-panel">
+        <div class="panel-head"><div class="panel-title">Watchlist</div><input id="watchFilter" class="watch-filter" placeholder="filter…"/><span class="live-badge" id="liveBadge">○ idle</span></div>
+        <div class="watch-count" id="watchCount"></div>
+        <div class="watch-rows" id="watchRows"></div>
+      </div>
+
+      <div class="panel feed-panel">
+        <div class="panel-head"><div class="panel-title">Signals &amp; decisions</div></div>
+        <div id="feedRows" class="feed-rows"></div>
+      </div>
+
+      <div class="panel pos-panel">
+        <div class="panel-head"><div class="panel-title">Open positions</div><span class="hint" id="posCount"></span></div>
+        <div id="posRows" class="pos-rows"><div class="empty">No open positions.</div></div>
+      </div>
+
+      <div class="panel log-panel">
+        <div class="panel-head"><div class="panel-title">Agent log</div></div>
+        <pre id="logBox" class="log-box">agent not started.</pre>
+      </div>
+    </main>
+  </div>
+
+  <!-- ══════════ PORTFOLIO PAGE ══════════ -->
+  <div id="page-portfolio" class="page hidden">
+    <main class="port-grid">
+      <div class="panel port-left">
+        <div class="panel-head"><div class="panel-title">Portfolio</div></div>
+        <div class="port-body">
+          <div class="port-equity">
+            <div class="pe-label">Total equity</div>
+            <div class="pe-val" id="pEquity">$10,000.00</div>
+            <div class="pe-row"><span>Cash</span><b id="pCash">$10,000</b></div>
+            <div class="pe-row"><span>In positions</span><b id="pDeployed">$0</b></div>
+            <div class="pe-row"><span>Unrealized P&amp;L (net)</span><b id="pUnreal" class="pos">$0</b></div>
+            <div class="pe-row"><span>Realized P&amp;L</span><b id="pReal" class="pos">$0</b></div>
+            <div class="pe-row"><span>Fees paid</span><b id="pFees" class="neg">$0</b></div>
+            <div class="pe-row"><span>Total return</span><b id="pRet">0.00%</b></div>
+          </div>
+          <div class="port-stats">
+            <div class="ps"><div class="ps-v" id="sTrades">0</div><div class="ps-l">Fills</div></div>
+            <div class="ps"><div class="ps-v" id="sWin">—</div><div class="ps-l">Win rate</div></div>
+            <div class="ps"><div class="ps-v" id="sAvg">—</div><div class="ps-l">Avg win</div></div>
+            <div class="ps"><div class="ps-v" id="sAvgL">—</div><div class="ps-l">Avg loss</div></div>
+            <div class="ps"><div class="ps-v" id="sDD">0%</div><div class="ps-l">Max DD</div></div>
+          </div>
+          <div class="port-alloc"><div class="panel-title" style="margin-bottom:8px">Allocation</div><div id="allocBars"></div></div>
+        </div>
+      </div>
+
+      <div class="port-right">
+        <div class="panel">
+          <div class="panel-head"><div class="panel-title">Open positions (closed-hour marks)</div><span class="hint" id="pPosCount"></span></div>
+          <div class="table-wrap"><table class="tbl"><thead><tr><th>Symbol</th><th>Side</th><th>Qty</th><th>Entry</th><th>Mark</th><th>Value</th><th>uPnL</th><th>uPnL%</th><th>Stop</th><th>Target</th><th>Strategy</th><th>Trail</th><th>Age</th></tr></thead><tbody id="pPosBody"><tr><td colspan="13" class="empty">none</td></tr></tbody></table></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div class="panel-title">Trade history</div></div>
+          <div class="table-wrap"><table class="tbl"><thead><tr><th>Time</th><th>Symbol</th><th>Action</th><th>Side</th><th>Qty</th><th>Price</th><th>Value</th><th>Fee</th><th>P&amp;L</th><th>Reason</th></tr></thead><tbody id="pTradeBody"><tr><td colspan="10" class="empty">no fills</td></tr></tbody></table></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="page-adaptive" class="page hidden">
+    <main class="adaptive-layout">
+      <section class="panel adaptive-hero">
+        <div class="adaptive-hero-copy">
+          <div class="adaptive-eyebrow"><span class="adaptive-orb" id="adaptiveOrb" aria-hidden="true"></span>AUTO-LEARNING · PAPER ONLY</div>
+          <div class="adaptive-title-line">
+            <h1>Adaptive engine</h1>
+            <span id="adaptiveHealth" class="adaptive-badge" role="status">Checking snapshot</span>
+          </div>
+          <p class="adaptive-lede">Strategy variants compete on simulated paper results. The active one trades only when its closed-hour signal is clear; otherwise the account holds cash.</p>
+          <div id="adaptiveTiming" class="adaptive-meta" aria-live="polite">
+            <span class="adaptive-meta-item"><span>Updated</span><b>—</b></span>
+            <span class="adaptive-meta-item"><span>Next candle</span><b>—</b></span>
+            <span class="adaptive-meta-item"><span>Audit</span><b>—</b></span>
+          </div>
+        </div>
+        <div class="adaptive-hero-side">
+          <div class="adaptive-live-card">
+            <div class="adaptive-live-top"><span class="adaptive-live-label">Running now</span><span class="adaptive-live-kind" id="adaptivePending">Waiting for data</span></div>
+            <strong id="adaptiveChampion">—</strong>
+            <span class="adaptive-live-note" id="adaptiveStrategyNote">Exploration until a champion qualifies.</span>
+          </div>
+        </div>
+      </section>
+      <div id="adaptiveError" class="adaptive-alert hidden" role="alert"></div>
+      <section class="adaptive-kpis" aria-label="Adaptive paper account">
+        <div class="kpi"><div class="kpi-label">Adaptive equity</div><div class="kpi-val" id="adaptiveEquity">—</div><div class="kpi-sub" id="adaptiveCash">Cash —</div></div>
+        <div class="kpi"><div class="kpi-label">Net P&amp;L</div><div class="kpi-val" id="adaptivePnl">—</div><div class="kpi-sub">Fee-net · open included</div></div>
+        <div class="kpi"><div class="kpi-label">Deployed</div><div class="kpi-val" id="adaptiveDeployed">—</div><div class="kpi-sub" id="adaptiveDeployedSub">0 open · no real orders</div></div>
+        <div class="kpi"><div class="kpi-label">Closed / win rate</div><div class="kpi-val" id="adaptiveTrades">—</div><div class="kpi-sub" id="adaptiveClosedSub">No closed trades yet</div></div>
+      </section>
+      <div class="adaptive-overview">
+        <section class="panel adaptive-progress-panel">
+          <div class="panel-head"><div><div class="panel-title">Learning progress</div><span class="adaptive-subhead">Live sample collection. A review can only promote when both bars are full and the gates pass.</span></div><span id="adaptiveReviewCount" class="adaptive-badge">—</span></div>
+          <div class="adaptive-progress-body">
+            <div class="adaptive-progress">
+              <div class="adaptive-progress-head"><span>Observation window</span><b id="adaptiveDays">—</b></div>
+              <div class="adaptive-track"><i id="adaptiveDaysBar"></i></div>
+            </div>
+            <div class="adaptive-progress">
+              <div class="adaptive-progress-head"><span>Closed-trade sample</span><b id="adaptiveTradesProgress">—</b></div>
+              <div class="adaptive-track"><i id="adaptiveTradesBar"></i></div>
+            </div>
+            <div class="adaptive-gate-summary" id="adaptiveGateSummary"></div>
+            <div class="adaptive-review" id="adaptiveReview">No review yet.</div>
+          </div>
+        </section>
+        <section class="panel adaptive-risk-panel">
+          <div class="panel-head"><div class="panel-title">Risk guardrails</div><span id="adaptiveRiskState" class="adaptive-badge">—</span></div>
+          <div id="adaptiveRisk" class="adaptive-risk-grid"></div>
+          <p class="adaptive-footnote">Fixed limits. The engine cannot raise them.</p>
+        </section>
+      </div>
+      <section class="panel adaptive-leaderboard-panel">
+        <div class="panel-head"><div><div class="panel-title">Candidate leaderboard</div><span class="adaptive-subhead">Normal-cost net P&amp;L. Promotion uses gates, not rank.</span></div><span class="adaptive-key"><i class="adaptive-key-dot pos"></i>positive<i class="adaptive-key-dot neg"></i>negative</span></div>
+        <div id="adaptiveCandidates" class="adaptive-candidate-list"><div class="empty">Waiting for candidate data.</div></div>
+      </section>
+      <div class="adaptive-bottom">
+        <section class="panel">
+          <div class="panel-head"><div class="panel-title">How it learns</div></div>
+          <div class="adaptive-learning-steps">
+            <div class="adaptive-learning-step"><span>01</span><div><b>Observe closed candles</b><p>1h and 4h signals only. No unfinished bars.</p></div></div>
+            <div class="adaptive-learning-step"><span>02</span><div><b>Simulate every variant</b><p>Normal costs and 2× fees + slippage, side by side.</p></div></div>
+            <div class="adaptive-learning-step"><span>03</span><div><b>Promote on evidence</b><p>Time, trades, cost-proof net and stability must all pass.</p></div></div>
+          </div>
+          <details class="adaptive-details"><summary>Selection rules</summary><ol id="adaptivePolicy" class="adaptive-policy"></ol></details>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><div class="panel-title">Evidence &amp; limits</div></div>
+          <div class="adaptive-facts">
+            <div><span>Fills</span><b>Closed-candle simulation, not order-book fills.</b></div>
+            <div><span>Shadow accounts</span><b>Separate experiments, never added to equity.</b></div>
+            <div><span>Real orders</span><b>None. No keys, no live trading.</b></div>
+            <div><span>Promotion</span><b>Never forced. No signal means cash.</b></div>
+          </div>
+          <details class="adaptive-details"><summary>Full research note</summary><p class="adaptive-note">Forward mode is prospective closed-bar simulation, not executable quotes or order-book fills. Historical research was already inspected and is not a pristine holdout. Shadow portfolios use separate virtual capital and are never added to account equity. Every candidate is an unproven hypothesis; no strategy is guaranteed profitable. The engine cannot raise risk limits, and it never forces a trade.</p></details>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <footer class="foot">
+    <span>⚠ Paper trading only · real prices, simulated fills · results are <b>not predictive</b> · no real orders, no keys.</span>
+    <span id="clock"></span>
+  </footer>
+  <div id="toasts"></div>
+</div>
+<script src="app.js"></script>
+<script type="module" src="adaptive-ui.js"></script>
+</body>
+</html>

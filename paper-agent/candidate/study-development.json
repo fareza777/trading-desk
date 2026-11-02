@@ -1,0 +1,472 @@
+{
+  "generatedAt": "2026-10-28T06:43:22.093Z",
+  "registrationSha256": "585c76a63c538c50131bfcc2928a52ae2eee7282ef3133c53625b0dc9f610c58",
+  "results": {
+    "trend": {
+      "development": {
+        "closed": 24,
+        "wins": 8,
+        "winRatePct": 33.333333333333336,
+        "netPnl": -5.289603520426681,
+        "returnPct": -0.05289603520426681,
+        "profitFactor": 0.9751437648917525,
+        "expectancy": -0.2204001466845583,
+        "avgWin": 25.939788695033776,
+        "avgLoss": 13.300494567543725,
+        "maxDrawdownPct": 1.231053732866405,
+        "fees": 59.47472097490342,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": 46.23531407895808,
+            "trades": 10
+          },
+          "ETH/USDT": {
+            "netPnl": -43.542299101079884,
+            "trades": 3
+          },
+          "SOL/USDT": {
+            "netPnl": 6.498475861816244,
+            "trades": 10
+          },
+          "LINK/USDT": {
+            "netPnl": 0,
+            "trades": 0
+          },
+          "AVAX/USDT": {
+            "netPnl": -14.481094360123842,
+            "trades": 1
+          }
+        },
+        "from": "2024-03-10T16:00:00.000Z",
+        "to": "2025-01-01T00:00:00.000Z"
+      },
+      "validation": {
+        "closed": 26,
+        "wins": 11,
+        "winRatePct": 42.30769230769231,
+        "netPnl": 35.099803957395125,
+        "returnPct": 0.35099803957395126,
+        "profitFactor": 1.1484223498384063,
+        "expectancy": 1.3499924598994673,
+        "avgWin": 24.68961617333936,
+        "avgLoss": 15.765731596623118,
+        "maxDrawdownPct": 1.1139751031484457,
+        "fees": 63.00285822130619,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": -11.235743749397564,
+            "trades": 9
+          },
+          "ETH/USDT": {
+            "netPnl": -40.2698279831703,
+            "trades": 6
+          },
+          "SOL/USDT": {
+            "netPnl": 28.60768390471975,
+            "trades": 5
+          },
+          "LINK/USDT": {
+            "netPnl": 83.14607075694735,
+            "trades": 5
+          },
+          "AVAX/USDT": {
+            "netPnl": -25.148378971713083,
+            "trades": 1
+          }
+        },
+        "from": "2025-01-01T00:00:00.000Z",
+        "to": "2025-09-01T00:00:00.000Z"
+      },
+      "validationDoubleCosts": {
+        "closed": 26,
+        "wins": 9,
+        "winRatePct": 34.61538461538461,
+        "netPnl": -49.064594811083225,
+        "returnPct": -0.4906459481108323,
+        "profitFactor": 0.818218545142061,
+        "expectancy": -1.8870998004261155,
+        "avgWin": 24.538355329345766,
+        "avgLoss": 15.877046633834759,
+        "maxDrawdownPct": 1.6868496680449097,
+        "fees": 120.8049417803025,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": -49.81602646312,
+            "trades": 9
+          },
+          "ETH/USDT": {
+            "netPnl": -50.773378842657976,
+            "trades": 6
+          },
+          "SOL/USDT": {
+            "netPnl": 14.309109311792145,
+            "trades": 5
+          },
+          "LINK/USDT": {
+            "netPnl": 62.26876874009187,
+            "trades": 5
+          },
+          "AVAX/USDT": {
+            "netPnl": -25.05306755718505,
+            "trades": 1
+          }
+        },
+        "from": "2025-01-01T00:00:00.000Z",
+        "to": "2025-09-01T00:00:00.000Z"
+      }
+    },
+    "breakout": {
+      "development": {
+        "closed": 49,
+        "wins": 16,
+        "winRatePct": 32.6530612244898,
+        "netPnl": -278.21177301970056,
+        "returnPct": -2.7821177301970055,
+        "profitFactor": 0.5627516476551204,
+        "expectancy": -5.677791286116201,
+        "avgWin": 22.379177191900997,
+        "avgLoss": 19.281169942124542,
+        "maxDrawdownPct": 3.1118688192510846,
+        "fees": 115.3155757840711,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": -71.24157783126542,
+            "trades": 17
+          },
+          "ETH/USDT": {
+            "netPnl": -158.9219700940515,
+            "trades": 11
+          },
+          "SOL/USDT": {
+            "netPnl": -57.49566235774819,
+            "trades": 16
+          },
+          "LINK/USDT": {
+            "netPnl": -0.6482092691361174,
+            "trades": 3
+          },
+          "AVAX/USDT": {
+            "netPnl": 10.095646532507368,
+            "trades": 2
+          }
+        },
+        "from": "2024-03-10T16:00:00.000Z",
+        "to": "2025-01-01T00:00:00.000Z"
+      },
+      "validation": {
+        "closed": 45,
+        "wins": 19,
+        "winRatePct": 42.22222222222222,
+        "netPnl": -82.03868195863106,
+        "returnPct": -0.8203868195863107,
+        "profitFactor": 0.8555933890531718,
+        "expectancy": -1.8230818213029965,
+        "avgWin": 25.58264344147431,
+        "avgLoss": 21.850342590255647,
+        "maxDrawdownPct": 1.844355004665199,
+        "fees": 107.47456400503066,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": -13.770999512241245,
+            "trades": 12
+          },
+          "ETH/USDT": {
+            "netPnl": 56.447218266746006,
+            "trades": 13
+          },
+          "SOL/USDT": {
+            "netPnl": -65.81992148379405,
+            "trades": 11
+          },
+          "LINK/USDT": {
+            "netPnl": -9.481032198653377,
+            "trades": 7
+          },
+          "AVAX/USDT": {
+            "netPnl": -49.41394703069221,
+            "trades": 2
+          }
+        },
+        "from": "2025-01-01T00:00:00.000Z",
+        "to": "2025-09-01T00:00:00.000Z"
+      },
+      "validationDoubleCosts": {
+        "closed": 44,
+        "wins": 19,
+        "winRatePct": 43.18181818181818,
+        "netPnl": -163.24279157106685,
+        "returnPct": -1.6324279157106685,
+        "profitFactor": 0.7147922975795075,
+        "expectancy": -3.710063444797004,
+        "avgWin": 21.532726585627973,
+        "avgLoss": 22.89458386791999,
+        "maxDrawdownPct": 2.1736562920728675,
+        "fees": 201.49531113554715,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": -48.319909248042684,
+            "trades": 12
+          },
+          "ETH/USDT": {
+            "netPnl": 19.769184814382026,
+            "trades": 13
+          },
+          "SOL/USDT": {
+            "netPnl": -83.95631989152466,
+            "trades": 11
+          },
+          "LINK/USDT": {
+            "netPnl": -1.086003817966521,
+            "trades": 6
+          },
+          "AVAX/USDT": {
+            "netPnl": -49.64974342791636,
+            "trades": 2
+          }
+        },
+        "from": "2025-01-01T00:00:00.000Z",
+        "to": "2025-09-01T00:00:00.000Z"
+      }
+    },
+    "reversion": {
+      "development": {
+        "closed": 21,
+        "wins": 14,
+        "winRatePct": 66.66666666666667,
+        "netPnl": -27.203326365484827,
+        "returnPct": -0.27203326365484826,
+        "profitFactor": 0.7916368643738794,
+        "expectancy": -1.295396493594492,
+        "avgWin": 7.382425988372673,
+        "avgLoss": 18.651041457528823,
+        "maxDrawdownPct": 0.6933453186831695,
+        "fees": 49.673875916401386,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": -1.6882340339836903,
+            "trades": 3
+          },
+          "ETH/USDT": {
+            "netPnl": 1.6562811245424616,
+            "trades": 6
+          },
+          "SOL/USDT": {
+            "netPnl": 16.649208900372383,
+            "trades": 10
+          },
+          "LINK/USDT": {
+            "netPnl": -18.810762832391173,
+            "trades": 1
+          },
+          "AVAX/USDT": {
+            "netPnl": -25.009819524024316,
+            "trades": 1
+          }
+        },
+        "from": "2024-03-10T16:00:00.000Z",
+        "to": "2025-01-01T00:00:00.000Z"
+      },
+      "validation": {
+        "closed": 21,
+        "wins": 13,
+        "winRatePct": 61.904761904761905,
+        "netPnl": -48.4454289564128,
+        "returnPct": -0.484454289564128,
+        "profitFactor": 0.7029026180768486,
+        "expectancy": -2.306925188400465,
+        "avgWin": 8.816694436864829,
+        "avgLoss": 20.38280707945657,
+        "maxDrawdownPct": 1.320907845631314,
+        "fees": 48.30577978158019,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": 15.845359799978462,
+            "trades": 3
+          },
+          "ETH/USDT": {
+            "netPnl": -18.50517551565733,
+            "trades": 5
+          },
+          "SOL/USDT": {
+            "netPnl": -37.11641382093268,
+            "trades": 7
+          },
+          "LINK/USDT": {
+            "netPnl": -25.5885389792149,
+            "trades": 4
+          },
+          "AVAX/USDT": {
+            "netPnl": 16.919339559416688,
+            "trades": 2
+          }
+        },
+        "from": "2025-01-01T00:00:00.000Z",
+        "to": "2025-09-01T00:00:00.000Z"
+      },
+      "validationDoubleCosts": {
+        "closed": 21,
+        "wins": 10,
+        "winRatePct": 47.61904761904762,
+        "netPnl": -101.67521041411965,
+        "returnPct": -1.0167521041411964,
+        "profitFactor": 0.4205906918057809,
+        "expectancy": -4.841676686386632,
+        "avgWin": 7.380559214840626,
+        "avgLoss": 15.952800232956866,
+        "maxDrawdownPct": 1.6615616231410946,
+        "fees": 91.41302751680949,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": 5.455537292547483,
+            "trades": 3
+          },
+          "ETH/USDT": {
+            "netPnl": -29.84463798707923,
+            "trades": 5
+          },
+          "SOL/USDT": {
+            "netPnl": -56.57375210254532,
+            "trades": 7
+          },
+          "LINK/USDT": {
+            "netPnl": -31.62384936248137,
+            "trades": 4
+          },
+          "AVAX/USDT": {
+            "netPnl": 10.911491745439182,
+            "trades": 2
+          }
+        },
+        "from": "2025-01-01T00:00:00.000Z",
+        "to": "2025-09-01T00:00:00.000Z"
+      }
+    },
+    "legacy-corrected": {
+      "development": {
+        "closed": 43,
+        "wins": 10,
+        "winRatePct": 23.25581395348837,
+        "netPnl": -474.8465439937554,
+        "returnPct": -4.748465439937554,
+        "profitFactor": 0.2880702106280898,
+        "expectancy": -11.042942883575707,
+        "avgWin": 19.213853105512253,
+        "avgLoss": 20.211668940875086,
+        "maxDrawdownPct": 5.050236682593057,
+        "fees": 91.94161921469583,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": -136.15164028358808,
+            "trades": 12
+          },
+          "ETH/USDT": {
+            "netPnl": -143.17684604509054,
+            "trades": 7
+          },
+          "SOL/USDT": {
+            "netPnl": -125.48787343650076,
+            "trades": 13
+          },
+          "LINK/USDT": {
+            "netPnl": 18.685077308770015,
+            "trades": 3
+          },
+          "AVAX/USDT": {
+            "netPnl": -88.71526153734605,
+            "trades": 8
+          }
+        },
+        "from": "2024-03-10T16:00:00.000Z",
+        "to": "2025-01-01T00:00:00.000Z"
+      },
+      "validation": {
+        "closed": 75,
+        "wins": 34,
+        "winRatePct": 45.333333333333336,
+        "netPnl": 51.4085170864746,
+        "returnPct": 0.514085170864746,
+        "profitFactor": 1.0599520859288258,
+        "expectancy": 0.685446894486382,
+        "avgWin": 26.732408877811555,
+        "avgLoss": 20.914472799002795,
+        "maxDrawdownPct": 3.3751019828633044,
+        "fees": 169.76105649227767,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": 20.318734939543504,
+            "trades": 17
+          },
+          "ETH/USDT": {
+            "netPnl": 16.36229950459672,
+            "trades": 22
+          },
+          "SOL/USDT": {
+            "netPnl": 32.30264834794226,
+            "trades": 19
+          },
+          "LINK/USDT": {
+            "netPnl": -19.360295353668175,
+            "trades": 10
+          },
+          "AVAX/USDT": {
+            "netPnl": 1.7851296480643057,
+            "trades": 7
+          }
+        },
+        "from": "2025-01-01T00:00:00.000Z",
+        "to": "2025-09-01T00:00:00.000Z"
+      },
+      "validationDoubleCosts": {
+        "closed": 78,
+        "wins": 35,
+        "winRatePct": 44.87179487179487,
+        "netPnl": -155.85480586404992,
+        "returnPct": -1.5585480586404992,
+        "profitFactor": 0.8350830916450456,
+        "expectancy": -1.998138536718488,
+        "avgWin": 22.54844825917754,
+        "avgLoss": 21.977918486866415,
+        "maxDrawdownPct": 4.015400808138692,
+        "fees": 337.2413728829561,
+        "funding": 0,
+        "perSymbol": {
+          "BTC/USDT": {
+            "netPnl": -123.80641806483256,
+            "trades": 20
+          },
+          "ETH/USDT": {
+            "netPnl": -32.96364279958237,
+            "trades": 23
+          },
+          "SOL/USDT": {
+            "netPnl": -44.34807748467056,
+            "trades": 17
+          },
+          "LINK/USDT": {
+            "netPnl": -28.297906026352976,
+            "trades": 13
+          },
+          "AVAX/USDT": {
+            "netPnl": 73.56123851139654,
+            "trades": 5
+          }
+        },
+        "from": "2025-01-01T00:00:00.000Z",
+        "to": "2025-09-01T00:00:00.000Z"
+      }
+    }
+  },
+  "selected": null,
+  "selectionRule": "Highest validation net P&L among hypotheses passing development and validation gates; no fallback winner from reserved data."
+}

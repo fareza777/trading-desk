@@ -1,0 +1,11 @@
+{
+  "verifiedAt": "2026-10-28T06:44:27.973Z",
+  "regressionTestsPassed": 100,
+  "unchangedProductionAndArchiveFiles": 15,
+  "sourceAndDataHashesMatchRegistration": true,
+  "reservedClosedPositionsReconciled": 84,
+  "productionChanged": false,
+  "candidateLedgerCreated": false,
+  "forwardPaperStarted": false,
+  "verdict": "NO_CANDIDATE_FOR_PROMOTION"
+}

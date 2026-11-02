@@ -1,0 +1,62 @@
+{
+  "asOf": "2026-10-28T05:46:38Z",
+  "scope": "Read-only audit of retained live ledger; originals and running processes unchanged. Candidate research is separate.",
+  "retainedHistory": { "positions": 22, "closed": 18, "open": 4, "fills": 44, "firstPositionId": 19, "firstSnapshot": "2026-10-19T03:56:22Z", "lastSnapshot": "2026-10-28T05:46:38Z", "notNecessarilyLifetimeHistory": true },
+  "feeNetClosedPerformanceExcludingUnallocatedFunding": {
+    "wins": 6, "losses": 12, "winRatePct": 33.3333333333,
+    "grossFillPnl": -110.744315, "entryAndExitFees": 77.410591,
+    "netPnl": -188.154906, "profitFactor": 0.543, "expectancyUsd": -10.45,
+    "avgWinnerUsd": 37.26, "avgLoserUsd": 34.31,
+    "longNetUsd": -91.70, "shortNetUsd": -96.45,
+    "illustrativeWilson95WinRatePct": [16.3, 56.3],
+    "uncertainty": "18 correlated and differently sized closed positions do not establish an edge; interval assumes independence and funding can change win classification."
+  },
+  "latestSnapshot": { "cash": 8212.2532, "lockedEntryNotional": 1568.9522, "unrealized": 15.5217, "equity": 9796.7271, "unitemizedCashDebits": 26.5604, "openEntryFees": 4.0793, "observedMaxDrawdownPct": 2.280 },
+  "confirmedBugs": [
+    { "file": "../indicators.js", "line": 97, "finding": "EMA200 period shortened to available candle count; 7-day hourly window cannot compute a real EMA200." },
+    { "file": "../fetchers.js", "line": 6, "finding": "No closed-candle filter before strategy analysis; last incomplete 1h and 4h candles may drive entries/exits." },
+    { "file": "../../ccxt-mcp/server.js", "line": 305, "finding": "Pagination requests 1000 but breaks on fewer than 1000; installed OKX adapter caps at300. Formatter emits first300 rather than latest/history entirety. Increasing lookback alone is unsafe." },
+    { "file": "../agent.js", "line": 182, "finding": "Protective exits wait for all 200 asset fetches and the 15-minute cycle; observed snapshot interval median16.47 minutes, max7.02 hours. NEAR stop filled about3.29% beyond nominal stop." },
+    { "file": "../db.js", "line": 132, "finding": "Closed-position P&L omits entry fee and stale position input overwrites cumulative partial profit. CT position31 reported43.6911 instead of87.3822 exit-net; corrected all-fee net84.8277. Cash received both fills." },
+    { "file": "../agent.js", "line": 73, "finding": "Short funding directly debited from cash using fixed0.25-hour per cycle, with no per-position journal. Non-fill cash deductions26.56 are consistent with funding but cannot be exactly allocated." },
+    { "file": "../agent.js", "line": 126, "finding": "Entry volume filter checks optional DEX liquidity volume instead of exchange quoteVolume; a USDG stablecoin position was opened with0.0114% ATR and lost2.75 before any funding." },
+    { "file": "../db.js", "line": 6, "finding": "Cooldown only held in process memory and disappears on restart." },
+    { "file": "../engine.js", "line": 64, "finding": "Fixed8% TP2 can lie closer than1.5R TP1 for wide ATR stops; exit targets use prefill price rather than actual entry." },
+    { "file": "../server.js", "line": 41, "finding": "Run-once can launch alongside continuous agent and collide on nontransactional SQLite writes." }
+  ],
+  "candidateSpecification": {
+    "version": "closed-pullback-v2-2026-10-28",
+    "mode": "Research candidate; not promoted or running persistent paper loop",
+    "universe": ["BTC/USDT", "ETH/USDT", "SOL/USDT", "LINK/USDT", "AVAX/USDT"],
+    "entry": "Long-only. Closed 1h+4h trend alignment, actual EMA200 with800 hourly warmup,240 four-hour candles, rising EMA50, bullish BTC regime,4h ADX>=20, RSI45..65 rising, EMA20 pullback touch followed by closed recovery above previous high, <=1.5ATR extension. Reject high costs/stop distances.",
+    "risk": "0.25% equity maximum modeled stop-risk; <=5% notional per position,2 positions,10% deployment, no leverage or Kelly sizing. Liquidity>=10M quoteUSD/24h, spread<=0.2%, fresh books.",
+    "exit": "2ATR stop with1.5% floor; signals reject distances above6%. Half at1.5R, remainder3R, cost-aware breakeven plus trailing afterTP1; 96h weak-position time stop. Poll open positions independently every15s plus API latency.",
+    "brakes": "4h symbol cooldown,12h after stop,24h after3 consecutive losses,1.5% daily loss /5% peak drawdown entry halts. Exits remain enabled.",
+    "accounting": "Separate SQLite ledger only when explicitly run --paper. Atomic open/close, both fees included, fresh partial-close state, actual elapsed checkpointed funding, durable cooldown lookup. Default --check is read-only public market data.",
+    "testing": "Fixed parameters before first replay;220 days downloaded,1000 hours reserved for warmup;4 chronological windows including last holdout, fees/slippage stress, corrected legacy replay and legacy signals with candidate risk for comparison. No optimization or promise of future returns."
+  },
+  "validationResult": {
+    "technicalTestsPassed": 60,
+    "technicalTestsFailed": 0,
+    "readOnlyMarketCheck": "PASS; all five analyses ready; no entry approved at check time; no ledger created",
+    "historicalReplayDates": "2026-05-02T21:00:00Z to 2026-10-28T05:00:00Z; 1000 earlier hours used as warmup",
+    "candidate": { "closed": 11, "wins": 2, "winRatePct": 18.1818, "returnPct": -1.143449, "profitFactor": 0.329335, "expectancyUsd": -10.394991, "maxDrawdownPct": 1.242394 },
+    "matchedRiskLegacySignals": { "closed": 120, "winRatePct": 43.3333, "returnPct": -3.408122, "profitFactor": 0.603500 },
+    "lastWindowCandidate": { "closed": 7, "wins": 1, "returnPct": -0.840231, "profitFactor": 0.245163 },
+    "lastWindowDoubleCostsReturnPct": -1.035750,
+    "promotionGate": "REJECTED; engineering fixes pass tests but entry hypothesis has negative expectancy and insufficient evidence",
+    "caveats": ["No pristine unseen holdout: recent live losses informed design", "No parameter optimization; correctness fixes after initial replay", "Fixed current universe/selection bias", "No historical spread/depth/tick path", "No persistent forward paper run or production activation", "Lower total loss/drawdown is not proof of better signals"],
+    "nextRecommendation": "Do not promote the candidate. Seek user approval before changing the active agent; prioritize validated accounting/data/risk fixes and a no-new-entry maintenance mode that keeps managing existing positions. New entry research requires fresh validation, not optimizing this already-seen window."
+  },
+  "references": [
+    { "title": "CCXT manual: incomplete last candle", "url": "https://docs.ccxt.com/docs/manual", "verified": "public documentation and installed ccxt OKX source" },
+    { "title": "Freqtrade recursive indicator analysis", "url": "https://www.freqtrade.io/en/stable/recursive-analysis/", "verified": "documentation" },
+    { "title": "Freqtrade lookahead analysis", "url": "https://www.freqtrade.io/en/stable/lookahead-analysis/", "verified": "documentation" },
+    { "title": "Freqtrade backtesting assumptions", "url": "https://www.freqtrade.io/en/2025.6/backtesting/", "verified": "versioned documentation" },
+    { "title": "Freqtrade stoploss mechanics", "url": "https://www.freqtrade.io/en/stable/stoploss/", "verified": "documentation" },
+    { "title": "Freqtrade protections", "url": "https://www.freqtrade.io/en/stable/plugins/", "verified": "documentation" },
+    { "title": "QuantConnect crypto EMA universe forum", "url": "https://www.quantconnect.com/forum/discussion/12949/share-crypto-universe-trend-following-w-ema-crossovers/", "verified": "discussion; not proof of profitability" },
+    { "title": "QuantConnect go-live validation forum", "url": "https://www.quantconnect.com/forum/discussion/15725/when-is-a-strategy-quot-good-enough-quot-to-go-live/", "verified": "discussion; not proof of profitability" },
+    { "title": "Freqtrade official repository", "url": "https://github.com/freqtrade/freqtrade", "verified": "repository identity linked by docs only; source code not fetched because gh CLI unavailable" }
+  ]
+}

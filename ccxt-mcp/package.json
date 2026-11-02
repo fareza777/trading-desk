@@ -1,0 +1,14 @@
+{
+  "name": "ccxt-mcp",
+  "version": "0.1.0",
+  "description": "CCXT read-only market data MCP server (Node.js)",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "ccxt": "^4.5.88"
+  }
+}

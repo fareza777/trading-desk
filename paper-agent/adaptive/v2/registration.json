@@ -1,0 +1,193 @@
+{
+  "registeredAt": "2026-10-29T09:11:17.918Z",
+  "version": "adaptive-active-v2",
+  "sourceHash": "1a228a4e7873fc2135972c31b7031389e7bb3ab13e0fbd8475f51385dba698e8",
+  "datasetHash": "a7d16e783631e31f12834861779c0c8db9f9476a236112d0ed6be8788e7a3088",
+  "nodeVersion": "v24.19.0",
+  "risk": {
+    "startingBalance": 10000,
+    "maxOpenPositions": 2,
+    "maxSameDirection": 2,
+    "riskPerTradePct": 0.0025,
+    "maxPositionPct": 0.05,
+    "maxDeployPct": 0.1,
+    "stopLossPct": 0.03,
+    "maxStopPct": 0.08,
+    "atrStopMultiple": 4,
+    "tp1R": 1.5,
+    "tp1ClosePct": 0.5,
+    "tp2R": 3,
+    "trailAfterTp1": true,
+    "trailDistancePct": 0.05,
+    "timeStopCandles": 336,
+    "takerFeePct": 0.0026,
+    "slippagePct": 0.0008,
+    "minLiquidityUsd": 500000,
+    "minVolume24Usd": 10000000,
+    "maxSpreadPct": 0.002,
+    "maxDataAgeMs": 60000,
+    "maxImpactPct": 0.003,
+    "orderBookLevels": 20,
+    "rsiEntryMin": 45,
+    "rsiEntryMax": 65,
+    "allowShort": false,
+    "circuitBreakPct": 0.05,
+    "dailyHaltPct": 0.015,
+    "symbolCooldownMin": 240,
+    "stopCooldownMin": 720,
+    "maxConsecutiveLosses": 3,
+    "lossPauseHours": 24,
+    "kellyFactor": 0,
+    "fundingPerHourShortPct": 0.0001,
+    "dynamicSlippage": false,
+    "minNetRewardRisk": 1.5,
+    "maxCostToStop": 0.35,
+    "startupCandles1h": 800,
+    "startupCandles4h": 240,
+    "minAdx": 20,
+    "maxEntryExtensionAtr": 1.5,
+    "positionPollMs": 15000
+  },
+  "exploration": {
+    "baseline": "hourly-recovery",
+    "riskPerTradePct": 0.0025,
+    "maxPositionPct": 0.05,
+    "maxDeployPct": 0.1,
+    "maxOpenPositions": 2,
+    "selectionDays": 90,
+    "minClosedPerScenario": 8,
+    "switchAdvantageUsd": 10
+  },
+  "candidates": [
+    {
+      "id": "trend-capped",
+      "family": "trend",
+      "targetR": 3,
+      "trailPct": 0.05,
+      "maxHoldHours": 336
+    },
+    {
+      "id": "trend-runner",
+      "family": "trend",
+      "targetR": null,
+      "trailPct": 0.08,
+      "maxHoldHours": 720
+    },
+    {
+      "id": "breakout-capped",
+      "family": "breakout",
+      "targetR": 3,
+      "trailPct": 0.05,
+      "maxHoldHours": 336
+    },
+    {
+      "id": "breakout-runner",
+      "family": "breakout",
+      "targetR": null,
+      "trailPct": 0.08,
+      "maxHoldHours": 720
+    },
+    {
+      "id": "reversion-fast",
+      "family": "reversion",
+      "targetR": 1,
+      "trailPct": null,
+      "maxHoldHours": 48
+    },
+    {
+      "id": "reversion-standard",
+      "family": "reversion",
+      "targetR": 1.5,
+      "trailPct": null,
+      "maxHoldHours": 96
+    },
+    {
+      "id": "hourly-recovery",
+      "family": "hourly-recovery",
+      "targetR": 2,
+      "trailPct": null,
+      "maxHoldHours": 72,
+      "rsiEntryMax": 25,
+      "rsiExitMin": 55,
+      "momentumFloorPct": -8,
+      "regimeFloorPct": 0.9
+    }
+  ],
+  "learning": {
+    "reviewDays": 7,
+    "lookbackDays": 180,
+    "minDays": 90,
+    "minTrades": 30,
+    "minRecentTrades": 5,
+    "recentDays": 45,
+    "minProfitFactor": 1.2,
+    "minimumAdvantageUsd": 10,
+    "minPositiveBlocks": 2,
+    "blocks": 3,
+    "standardErrorMultiple": 3,
+    "challengerConfirmations": 2,
+    "minChampionDays": 28,
+    "maxPromotionDrawdownPct": 5,
+    "driftClosedTrades": 10,
+    "driftMinimumLosses": 7
+  },
+  "sources": [
+    {
+      "url": "https://www.freqtrade.io/en/stable/freqai-running/",
+      "use": "rolling retraining, model expiry, caution about naive continual-learning overfitting",
+      "accessed": "documentation"
+    },
+    {
+      "url": "https://www.freqtrade.io/en/stable/freqai-reinforcement-learning/",
+      "use": "RL reward/environment simplifications are not a production strategy",
+      "accessed": "documentation"
+    },
+    {
+      "url": "https://qlib.readthedocs.io/en/v0.8.3/component/online.html",
+      "use": "separate online strategy management, routine updates, and simulation",
+      "accessed": "documentation"
+    },
+    {
+      "url": "https://github.com/microsoft/qlib",
+      "use": "repository identified through search; source not inspected because gh is unavailable",
+      "accessed": "indexed search only"
+    },
+    {
+      "url": "https://github.com/robcaulk/freqai",
+      "use": "repository identified through search; source not inspected because gh is unavailable",
+      "accessed": "indexed search only"
+    },
+    {
+      "url": "https://portfoliooptimizationbook.com/book/8.3-dangers-backtesting.html",
+      "use": "selection bias and repeated strategy testing; preserve rejected alternatives",
+      "accessed": "publication"
+    },
+    {
+      "url": "https://www.nber.org/papers/w24877",
+      "use": "historical crypto momentum motivation; does not validate these 4h rules or future profit",
+      "accessed": "indexed abstract"
+    },
+    {
+      "url": "https://www.reddit.com/r/algotrading/comments/1gussns/walk_forward_analysis_overfitting_question_dump/",
+      "use": "search surfaced overfitting discussion; direct access was CAPTCHA, no comments treated as evidence",
+      "accessed": "blocked"
+    }
+  ],
+  "limitations": [
+    "X and Threads searches did not yield usable technical evidence; no claim that their content or all GitHub source was reviewed.",
+    "Adaptive means selecting fixed, versioned entry/exit variants from observed net results; it does not rewrite source, invent unbounded strategies, use an LLM reward, or raise risk.",
+    "Underlying signal families failed previous screens; they remain hypotheses, not a proven profitable foundation.",
+    "Weekly mean minus three standard errors is a conservative heuristic, NOT a calibrated significance level or correction for dependent returns and repeated testing. Multiple alternatives/reviews still create selection bias.",
+    "The seven shadow portfolios each have independent virtual capital. Their P&Ls must never be added to report active account returns.",
+    "Shadow candidates skip portfolio drawdown/daily/consecutive-loss entry brakes to keep sampling hypotheses, but keep cash, position, per-trade risk, liquidity and cooldown limits. Only the selected active paper portfolio has the hard persistent portfolio brakes.",
+    "Signals use previous closed data; modeled entry at next hourly open. Completed OHLC bars determine pessimistic stop-first fills. Trailing levels apply next bar. No partial exits. Slippage 0.08% and fee 0.26% per side; actual account fee tier and historical depth remain unverified.",
+    "Selection only sees past outcomes; promoted strategy takes new entries next hour. Existing positions retain their entry version and protective exits. Historical winners never seed forward champion.",
+    "Historical data was already inspected during earlier failed experiments; replay is exploratory, not a pristine holdout. Champion promotion still needs at least 90 days, 30 closed trades per cost scenario, costs/stability gates and two weekly confirmations.",
+    "Before a champion exists, the active paper account follows one exploration candidate chosen only from prior shadow outcomes; no entry is forced, so it stays in cash while that candidate has no causal signal.",
+    "Exploration uses the registered 0.25% risk per trade, 5% position and 10% deployment caps; daily loss, peak drawdown and consecutive-loss brakes are unchanged and cannot be raised by the engine.",
+    "Every candidate, including the hourly-recovery baseline, is an unproven hypothesis. Shadow or paper results never guarantee future profit.",
+    "Forward mode is prospective closed-bar simulation, not executable quote/order-book paper fills or real trading. Late polls replay missed hours and are marked catch-up; clock/data gaps fail closed.",
+    "Forward indicator initialization uses a fixed start anchor, so hourly and catch-up polling produce identical features on identical candles. Initial sampling starts at the next hour, never before initialization.",
+    "No production trading sources, ledger, existing watchdog or credentials are touched. The dashboard receives a separate atomic read-only summary file. --watch lives only as long as its process; no 24/7 durability is implied."
+  ]
+}

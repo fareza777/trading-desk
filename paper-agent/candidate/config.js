@@ -1,0 +1,51 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+export const HERE = path.dirname(fileURLToPath(import.meta.url));
+export const DB_PATH = process.env.NODE_TEST_CONTEXT ? ":memory:" : path.join(HERE, "candidate-ledger.db");
+export const STRATEGY_VERSION = "closed-pullback-v2-2026-10-28";
+export const SYMBOLS = ["BTC/USDT", "ETH/USDT", "SOL/USDT", "LINK/USDT", "AVAX/USDT"];
+export const RISK = Object.freeze({
+  startingBalance: 10_000,
+  maxOpenPositions: 2,
+  maxSameDirection: 2,
+  riskPerTradePct: 0.0025,
+  maxPositionPct: 0.05,
+  maxDeployPct: 0.10,
+  stopLossPct: 0.015,
+  maxStopPct: 0.06,
+  atrStopMultiple: 2,
+  tp1R: 1.5,
+  tp1ClosePct: 0.5,
+  tp2R: 3,
+  trailAfterTp1: true,
+  trailDistancePct: 0.02,
+  timeStopCandles: 96,
+  takerFeePct: 0.0026,
+  slippagePct: 0.0008,
+  minLiquidityUsd: 500_000,
+  minVolume24Usd: 10_000_000,
+  maxSpreadPct: 0.002,
+  maxDataAgeMs: 60_000,
+  maxImpactPct: 0.003,
+  orderBookLevels: 20,
+  rsiEntryMin: 45,
+  rsiEntryMax: 65,
+  allowShort: false,
+  circuitBreakPct: 0.05,
+  dailyHaltPct: 0.015,
+  symbolCooldownMin: 240,
+  stopCooldownMin: 720,
+  maxConsecutiveLosses: 3,
+  lossPauseHours: 24,
+  kellyFactor: 0,
+  fundingPerHourShortPct: 0.0001,
+  dynamicSlippage: false,
+  minNetRewardRisk: 1.5,
+  maxCostToStop: 0.35,
+  startupCandles1h: 800,
+  startupCandles4h: 240,
+  minAdx: 20,
+  maxEntryExtensionAtr: 1.5,
+  positionPollMs: 15_000,
+});

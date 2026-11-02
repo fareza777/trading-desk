@@ -1,0 +1,9 @@
+node_modules/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.log
+paper-agent/logs/
+paper-agent/server.out
+paper-agent/server.err

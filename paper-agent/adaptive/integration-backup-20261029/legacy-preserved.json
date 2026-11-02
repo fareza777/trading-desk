@@ -1,0 +1,11 @@
+{
+  "capturedAt": "2026-10-29T07:36:50.409Z",
+  "file": "C:/Trading System V7/paper-agent/ledger.db",
+  "sha256": "ee9d6c167d71320995a5e01562a6ddaf09c8862dc3c3994c127384df5cd7d01b",
+  "counts": {
+    "positions": 27,
+    "trades": 54,
+    "decisions": 126066
+  },
+  "backup": "C:/Trading System V7/paper-agent/adaptive/integration-backup-20261029/legacy-ledger.db"
+}

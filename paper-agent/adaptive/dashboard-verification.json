@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-29T07:49:11.641Z",
+  "checks": [
+    "Main dashboard bound to adaptive account, fixed five-symbol universe, no manual trading controls or S/C mutations",
+    "Original dark dashboard with actual candlesticks, visible date range, and five current OKX prices",
+    "All four timeframe controls load real candles with correct timestamp spacing",
+    "Original portfolio navigation and account values",
+    "Adaptive actual snapshot: six candidates, cash champion, zero-trade win rate, separate account, hidden legacy controls",
+    "Stale snapshot clearly warned",
+    "HTTP failure retains last valid values with explicit unavailable status",
+    "Malformed snapshot rejected without zeroing account",
+    "Untrusted snapshot strings rendered as text, not HTML",
+    "Review gate rendering, per-scenario sample, and diagnoses",
+    "390px adaptive layout without horizontal page overflow",
+    "390px original dashboard and portfolio retain adaptive values without horizontal page overflow",
+    "Dashboard navigation restored; watchlist empty-filter and clear regression",
+    "Main account API outage retains values with unavailable state and recovers without starting a trader",
+    "Targetless and missing-mark positions render without fabricated marks or NaN"
+  ],
+  "exceptions": [],
+  "networkFailures": [],
+  "blockedWrites": []
+}

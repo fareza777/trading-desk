@@ -1,0 +1,20 @@
+{
+  "recordedAt": "2026-10-28T06:37:34.052Z",
+  "sha256": {
+    "paper-agent/agent.js": "c39d334f03229761248088ababaa9b7fd6359c969c1addcfe3d37ec649a4fe8d",
+    "paper-agent/config.js": "123c5aa422a66627ccaad7e0f518256d80ebea8cadab13cf6e3c32290752c67a",
+    "paper-agent/db.js": "d4df73859cf9985194899f333fd64106cac1d76553441d3874281a30149dc241",
+    "paper-agent/engine.js": "7a553820a8ec6d6d047f39ac96de6c71e87a551eeb81c36465c36f33fc56f423",
+    "paper-agent/fetchers.js": "da90e9158d433268b42b1d83b64c145d97f82ef72caabd914b6bcf82c1427332",
+    "paper-agent/indicators.js": "e014621bcc808bf93d53e62ecba7311f8191a38f48dc591ea08a214f745a95d7",
+    "paper-agent/mcp.js": "3af47f5b91aa6e799e70dd7c511385c479d658f09b81d46b40f3ba894ae58d6d",
+    "paper-agent/report.js": "b815474e157a91f08bdc98be40fd6397be49e1c56cf27130498a55016ea00390",
+    "paper-agent/server.js": "22bafdac8b5930c1247f7d200b6573d06bce8ae39e375d7a9d701bad33b5b7f1",
+    "paper-agent/package.json": "e2610c330545a270ab39ea2ecaeded840b1946627c240466a3121c0bebd682c6",
+    "paper-agent/watchdog.ps1": "54cd3e592fb6ea99df9e1631c5d7dcce5e625d1dd5148b1c607add81676b101c",
+    "ccxt-mcp/server.js": "773f66ea31030abb08c3f3ab06e4aa0a63543d7c7856d02e48dd956eced8c68c",
+    "watchlist.json": "42556b05472b2692d8f35cc23decff9b64dece553ceeaef7445d690b52109c10",
+    "paper-agent/candidate/backtest-results.json": "6b4093d43701e1f06e720a000794ed28beff3ba7d8b6274424638fc88a2834a8",
+    "paper-agent/candidate/history.json": "15ce9208e1be7e5d537a37c91fb91713002c9c52c233c6df795b010d1898bdc1"
+  }
+}

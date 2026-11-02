@@ -1,0 +1,15 @@
+{
+  "name": "paper-trading-agent",
+  "version": "1.0.0",
+  "description": "Crypto research + paper-trading agent. Read-only data via dexpaprika + ccxt MCP. Paper trades only.",
+  "type": "module",
+  "main": "agent.js",
+  "scripts": {
+    "start": "node agent.js",
+    "dashboard": "node server.js",
+    "report": "node report.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}

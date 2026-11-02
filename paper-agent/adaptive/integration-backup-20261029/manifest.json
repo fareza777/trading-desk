@@ -1,0 +1,11 @@
+{
+  "createdAt": "2026-10-29T07:29:08.071Z",
+  "purpose": "Before main dashboard adaptive backend integration",
+  "hashes": {
+    "server.js": "22bafdac8b5930c1247f7d200b6573d06bce8ae39e375d7a9d701bad33b5b7f1",
+    "public/index.html": "3dd702d51950bdc4eba688b2d4fae9fa8db29a3f8a8a51444e1c67eb83455cbe",
+    "public/app.js": "242cdfa961ce82f63a9e3d950f523784355bb7c488793cfca40e1899074ddda4",
+    "public/style.css": "4481ba5738d686e63742e5f3dd59d76ee86b1092c9dd0eca60c5ddbb921c1c7b",
+    "public/adaptive-ui.js": "8cdaa02f9fac2f16e35244d118f18b8b535253d7c1662ef13cf3412a5ab7836b"
+  }
+}
