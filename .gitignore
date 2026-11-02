@@ -7,3 +7,4 @@ node_modules/
 paper-agent/logs/
 paper-agent/server.out
 paper-agent/server.err
+paper-agent/public/adaptive-status.json

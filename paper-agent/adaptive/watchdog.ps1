@@ -27,6 +27,7 @@ try {
             try { $Child.Kill() } catch { }
             throw ('Observer timed out after {0}s; next scheduled run will retry.' -f ($TimeoutMs / 1000))
         }
+        $Child.WaitForExit()
         $Result = $Child.ExitCode
         if ($Result -eq 0) { break }
         $Detail = if (Test-Path -LiteralPath $Stderr) { Get-Content -LiteralPath $Stderr -Raw } else { '' }
