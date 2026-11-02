@@ -22,15 +22,27 @@ try {
     $Attempts = 3
     $TimeoutMs = 180000
     for ($Attempt = 1; $Attempt -le $Attempts; $Attempt++) {
-        $Child = Start-Process -FilePath $Node -ArgumentList ('"{0}" --once' -f $Runner) -WorkingDirectory $Dir -NoNewWindow -PassThru -RedirectStandardOutput $Stdout -RedirectStandardError $Stderr
+        $StartInfo = New-Object System.Diagnostics.ProcessStartInfo
+        $StartInfo.FileName = $Node
+        $StartInfo.Arguments = '"{0}" --once' -f $Runner
+        $StartInfo.WorkingDirectory = $Dir
+        $StartInfo.UseShellExecute = $false
+        $StartInfo.CreateNoWindow = $true
+        $StartInfo.RedirectStandardOutput = $true
+        $StartInfo.RedirectStandardError = $true
+        $Child = [System.Diagnostics.Process]::Start($StartInfo)
+        $OutTask = $Child.StandardOutput.ReadToEndAsync()
+        $ErrTask = $Child.StandardError.ReadToEndAsync()
         if (-not $Child.WaitForExit($TimeoutMs)) {
             try { $Child.Kill() } catch { }
             throw ('Observer timed out after {0}s; next scheduled run will retry.' -f ($TimeoutMs / 1000))
         }
         $Child.WaitForExit()
+        $Detail = $ErrTask.Result
+        [System.IO.File]::WriteAllText($Stdout, $OutTask.Result)
+        [System.IO.File]::WriteAllText($Stderr, $Detail)
         $Result = $Child.ExitCode
         if ($Result -eq 0) { break }
-        $Detail = if (Test-Path -LiteralPath $Stderr) { Get-Content -LiteralPath $Stderr -Raw } else { '' }
         if ($Detail -notmatch 'certificate|CERT_|ECONN|ETIMEDOUT|EAI_AGAIN|socket|network|fetch failed|503|502|504') { break }
         if ($Attempt -lt $Attempts) { Start-Sleep -Seconds (10 * $Attempt) }
     }
